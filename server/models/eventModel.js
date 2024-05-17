@@ -6,6 +6,10 @@ const eventSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    eventOwner: {
+      type: String,
+      required: true,
+    },
     category: {
       type: String,
       enum: [

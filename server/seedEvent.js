@@ -13,6 +13,7 @@ mongoose.connect(
 const events = [
   {
     eventName: "Event 1",
+    eventOwner: "admin@gmail.com",
     category: "Category 1",
     description: "Description for Event 1",
     photo:
@@ -23,6 +24,7 @@ const events = [
   },
   {
     eventName: "Event 2",
+    eventOwner: "admin@gmail.com",
     category: "Category 2",
     description: "Description for Event 3",
     photo:
@@ -33,6 +35,7 @@ const events = [
   },
   {
     eventName: "Event 3",
+    eventOwner: "admin@gmail.com",
     category: "Category 3",
     description: "Description for Event 3",
     photo:
@@ -43,6 +46,7 @@ const events = [
   },
   {
     eventName: "Event 4",
+    eventOwner: "admin@gmail.com",
     category: "Category 4",
     description: "Description for Event 4",
     photo:
@@ -53,6 +57,7 @@ const events = [
   },
   {
     eventName: "Event 5",
+    eventOwner: "admin@gmail.com",
     category: "Category 5",
     description: "Description for Event 5",
     photo:
@@ -63,6 +68,7 @@ const events = [
   },
   {
     eventName: "Event 6",
+    eventOwner: "admin@gmail.com",
     category: "Category 4",
     description: "Description for Event 6",
     photo:
@@ -73,6 +79,7 @@ const events = [
   },
   {
     eventName: "Event 7",
+    eventOwner: "admin@gmail.com",
     category: "Category 3",
     description: "Description for Event 7",
     photo:
@@ -83,6 +90,7 @@ const events = [
   },
   {
     eventName: "Event 8",
+    eventOwner: "admin@gmail.com",
     category: "Category 2",
     description: "Description for Event 8",
     photo:
@@ -93,6 +101,7 @@ const events = [
   },
   {
     eventName: "Event 9",
+    eventOwner: "admin@gmail.com",
     category: "Category 1",
     description: "Description for Event 9",
     photo:
@@ -103,6 +112,7 @@ const events = [
   },
   {
     eventName: "Event 10",
+    eventOwner: "admin@gmail.com",
     category: "Category 4",
     description: "Description for Event 10",
     photo:
