@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
+import "../index.css";
 
 const NavbarContainer = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -27,13 +28,13 @@ const NavbarContainer = () => {
   return (
     <header>
       <Navbar
-        className="mt-4 mx-4 bg-primary border-2 border-dark rounded-5 text-white"
+        className="h-full w-full bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100 font-bold"
         expand="lg"
         collapseOnSelect
       >
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand className="font-bold text-white">
+            <Navbar.Brand className="text-black font-poppins font-extrabold">
               UCLA Club
             </Navbar.Brand>
           </LinkContainer>
@@ -43,7 +44,7 @@ const NavbarContainer = () => {
               {userInfo ? (
                 <>
                   <NavDropdown
-                    className="font-bold text-white"
+                    className="font-bold text-black"
                     title={userInfo.name}
                     id="username"
                   >
@@ -57,10 +58,10 @@ const NavbarContainer = () => {
                 </>
               ) : (
                 <>
-                  <LinkContainer to="/login" className="text-white ">
+                  <LinkContainer to="/login" className="text-black button">
                     <Nav.Link>Sign In</Nav.Link>
                   </LinkContainer>
-                  <LinkContainer to="/register" className="text-white">
+                  <LinkContainer to="/register" className="text-black button">
                     <Nav.Link>Sign Up</Nav.Link>
                   </LinkContainer>
                 </>
