@@ -35,7 +35,7 @@ const NavbarContainer = () => {
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand className="text-black font-poppins font-extrabold">
-              UCLA Club
+              Brain Buzz
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

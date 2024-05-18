@@ -16,6 +16,12 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getEventsCreatedByUser: builder.mutation({
+      query: () => ({
+        url: `${EVENTS_URL}/profile`,
+        method: "GET",
+      }),
+    }),
     getEventById: builder.query({
       query: (eventId) => ({
         url: `${EVENTS_URL}/${eventId}`,
@@ -45,4 +51,5 @@ export const {
   useGetEventByIdQuery,
   useUpdateEventMutation,
   useDeleteEventMutation,
+  useGetEventsCreatedByUserMutation,
 } = eventsApiSlice;

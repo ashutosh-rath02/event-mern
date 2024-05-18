@@ -141,4 +141,27 @@ const deleteEvent = asyncHandler(async (req, res) => {
   }
 });
 
-export { createEvent, getEvents, getEventById, updateEvent, deleteEvent };
+// Get events created by a user
+const getEventsCreatedByUser = async (req, res) => {
+  const user = {
+    _id: req.user._id,
+    name: req.user.name,
+    email: req.user.email,
+  };
+  const userId = user._id;
+  try {
+    const userEvents = await Event.find({ eventOwner: userId });
+    res.json(userEvents);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export {
+  createEvent,
+  getEvents,
+  getEventsCreatedByUser,
+  getEventById,
+  updateEvent,
+  deleteEvent,
+};
