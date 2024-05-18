@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { ObjectId } from "mongodb";
 
 const eventSchema = mongoose.Schema(
   {
@@ -7,7 +8,7 @@ const eventSchema = mongoose.Schema(
       required: true,
     },
     eventOwner: {
-      type: String,
+      type: ObjectId,
       required: true,
     },
     category: {
@@ -27,7 +28,7 @@ const eventSchema = mongoose.Schema(
     },
     photo: {
       type: String, // URL
-      required: true,
+      required: false,
     },
     date: {
       type: Date,

@@ -16,6 +16,9 @@ import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegistrationPage.jsx";
 import ProfileCRUD from "./pages/ProfileCRUD.jsx";
 import PrivateRoute from "./atoms/PrivateRoute.jsx";
+import CreateEventScreen from "./pages/CreateEventScreen.jsx";
+import UpdateEventScreen from "./pages/UpdateEventScreen.jsx";
+import EventScreen from "./pages/EventScreen.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +28,16 @@ const router = createBrowserRouter(
       <Route path="/register" element={<RegisterPage />} />
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileCRUD />} />
+      </Route>
+
+      <Route path="" element={<PrivateRoute />}>
+        <Route path="/events" element={<EventScreen />} />
+      </Route>
+      <Route path="" element={<PrivateRoute />}>
+        <Route path="/create" element={<CreateEventScreen />} />
+      </Route>
+      <Route path="" element={<PrivateRoute />}>
+        <Route path="/update" element={<UpdateEventScreen />} />
       </Route>
     </Route>
   )

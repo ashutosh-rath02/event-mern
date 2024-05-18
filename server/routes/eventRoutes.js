@@ -10,11 +10,9 @@ import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.route("/").post(protect, createEvent).get(getEvents);
-router
-  .route("/:id")
-  .get(getEventById)
-  .put(protect, updateEvent)
-  .delete(protect, deleteEvent);
-
+router.route("/create").post(protect, createEvent);
+router.route("/update").put(protect, updateEvent);
+router.route("/delete").delete(protect, deleteEvent);
+//check this
+router.route("/").get(protect, getEvents);
 export default router;

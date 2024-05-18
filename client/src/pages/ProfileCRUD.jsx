@@ -8,7 +8,7 @@ import Loader from "../atoms/Loader";
 import { useUpdateUserMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import Sidebar from "../atoms/Sidebar";
-import MyEvents from "./myEvents";
+import MyEvents from "./MyEvents";
 import RegisteredEvents from "./registeredEvents";
 
 const ProfileCRUD = () => {
@@ -64,7 +64,7 @@ const ProfileCRUD = () => {
     switch (selectedComponent) {
       case "profile":
         return (
-          <div className="w-full">
+          <div className="">
             <FormContainer>
               <h1>Update Profile</h1>
               <Form onSubmit={submitHandler}>
@@ -145,7 +145,7 @@ const ProfileCRUD = () => {
   };
 
   return (
-    <Row className="mt-4">
+    <Row className="my-4 mx-4">
       <Col md={4}>
         <Sidebar onSidebarClick={handleSidebarClick} />
       </Col>

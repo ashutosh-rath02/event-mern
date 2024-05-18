@@ -1,35 +1,37 @@
-// import React from "react";
-// import Grid from "@mui/material/Grid";
-// import RecipeReviewCard from "./Card";
-
-// const EventsGrid = ({ events }) => {
-//   return (
-//     <Grid container spacing={3}>
-//       {events.map((event, index) => (
-//         <Grid key={index} item xs={12} sm={6} md={4}>
-//           <RecipeReviewCard event={event} />
-//         </Grid>
-//       ))}
-//     </Grid>
-//   );
-// };
-
-// export default EventsGrid;
 import Grid from "@mui/material/Grid";
 import RecipeReviewCard from "./Card";
+import PropTypes from "prop-types";
+import { Button } from "react-bootstrap";
 
-const EventsGrid = () => {
+const EventsGrid = ({ events, handleModifyBtn, handleDeleteBtn }) => {
   return (
     <div className="text-center">
-      <h2>Our Events</h2>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          margin: "0 2rem",
+        }}
+      >
+        <span style={{ color: "transparent" }}>.</span>
+        <h2 style={{ alignItems: "center" }}>Our Events</h2>
+        <Button
+          className="btn btn-primary btn-lg modify self-end relative right-2"
+          href="/create"
+        >
+          Add event
+        </Button>
+      </div>
       <Grid
         container
-        spacing={2}
+        spacing={4}
         maxWidth={1240}
         margin={"auto"}
         textAlign={"left"}
       >
-        {Array.from({ length: 12 }).map((_, index) => (
+        {events.map((event, index) => (
           <Grid
             key={index}
             item
@@ -39,12 +41,22 @@ const EventsGrid = () => {
             display="flex"
             justifyContent="center"
           >
-            <RecipeReviewCard />
+            <RecipeReviewCard
+              event={event}
+              handleModifyBtn={handleModifyBtn}
+              handleDeleteBtn={handleDeleteBtn}
+            />
           </Grid>
         ))}
       </Grid>
     </div>
   );
+};
+
+EventsGrid.propTypes = {
+  events: PropTypes.array.isRequired,
+  handleModifyBtn: PropTypes.func.isRequired,
+  handleDeleteBtn: PropTypes.func.isRequired,
 };
 
 export default EventsGrid;

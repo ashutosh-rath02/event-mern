@@ -1,6 +1,8 @@
+import { useSelector } from "react-redux";
 import Banner from "../atoms/Carousel/Banner";
 // import RecipeReviewCard from "../atoms/EventsGrid/Card";
 import EventsGrid from "../atoms/EventsGrid/EventsGrid";
+import EventScreen from "./EventScreen";
 // import Hero from "../atoms/Hero";
 // import { useGetEventsQuery } from "../slices/eventsApiSlice";
 
@@ -9,15 +11,18 @@ const Home = () => {
 
   // if (isLoading) return <div>Loading...</div>;
   // if (error) return <div>Error: {error.message}</div>;
-
-  return (
-    <div className="w-full flex flex-col items-center justify-center self-center">
-      <Banner />
-      {/* <RecipeReviewCard /> */}
-      <EventsGrid />
-      {/* <Hero events={events} /> */}
-    </div>
-  );
+  const { userInfo } = useSelector((state) => state.auth);
+  if (!userInfo) {
+    return (
+      <div className="w-full flex flex-col items-center justify-center self-center">
+        <Banner />
+        {/* <RecipeReviewCard /> */}
+        <EventsGrid />
+        {/* <Hero events={events} /> */}
+      </div>
+    );
+  }
+  return <EventScreen />;
 };
 
 export default Home;
