@@ -8,6 +8,7 @@ const EventsGrid = ({
   handleModifyBtn,
   handleDeleteBtn,
   handleRegisterBtn,
+  handleDeregisterBtn,
 }) => {
   return (
     <div className="text-center">
@@ -51,6 +52,7 @@ const EventsGrid = ({
               handleModifyBtn={handleModifyBtn}
               handleDeleteBtn={handleDeleteBtn}
               handleRegisterBtn={handleRegisterBtn}
+              handleDeregisterBtn={handleDeregisterBtn}
             />
           </Grid>
         ))}
@@ -64,6 +66,7 @@ EventsGrid.propTypes = {
   handleModifyBtn: PropTypes.func.isRequired,
   handleDeleteBtn: PropTypes.func.isRequired,
   handleRegisterBtn: PropTypes.func.isRequired,
+  handleDeregisterBtn: PropTypes.func.isRequired,
 };
 
 export default EventsGrid;

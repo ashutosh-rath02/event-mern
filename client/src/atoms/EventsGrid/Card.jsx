@@ -3,18 +3,22 @@ import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Box, Button, Chip, IconButton } from "@mui/material";
-import { FaSlidersH } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { Box, Button, Chip } from "@mui/material";
+// import { FaSlidersH } from "react-icons/fa";
+// import { MdDelete } from "react-icons/md";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 // import React from "react";
 
 const RecipeReviewCard = ({
   event,
-  handleModifyBtn,
-  handleDeleteBtn,
+  // handleModifyBtn,
+  // handleDeleteBtn,
   handleRegisterBtn,
+  handleDeregisterBtn,
 }) => {
+  const { userInfo } = useSelector((state) => state.auth);
+  const isRegistered = event.registeredUsers.includes(userInfo._id);
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => setOpen(true);
   // const handleClose = () => setOpen(false);
@@ -23,16 +27,16 @@ const RecipeReviewCard = ({
       <CardHeader
         title={event.eventName}
         subheader={new Date(event.date).toLocaleDateString()}
-        action={
-          <Box display="flex">
-            <IconButton onClick={() => handleModifyBtn(event)}>
-              <FaSlidersH />
-            </IconButton>
-            <IconButton onClick={() => handleDeleteBtn(event)}>
-              <MdDelete />
-            </IconButton>
-          </Box>
-        }
+        // action={
+        //   <Box display="flex">
+        //     <IconButton onClick={() => handleModifyBtn(event)}>
+        //       <FaSlidersH />
+        //     </IconButton>
+        //     <IconButton onClick={() => handleDeleteBtn(event)}>
+        //       <MdDelete />
+        //     </IconButton>
+        //   </Box>
+        // }
       />
       <CardMedia
         component="img"
@@ -61,13 +65,23 @@ const RecipeReviewCard = ({
         mx={2}
       >
         <Typography variant="body1">{`${event.startTime} - ${event.endTime}`}</Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => handleRegisterBtn(event._id)}
-        >
-          Register
-        </Button>
+        {isRegistered ? (
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => handleDeregisterBtn(event._id)}
+          >
+            Deregister
+          </Button>
+        ) : (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleRegisterBtn(event._id)}
+          >
+            Register
+          </Button>
+        )}
       </Box>
     </Card>
   );
@@ -78,6 +92,7 @@ RecipeReviewCard.propTypes = {
   handleModifyBtn: PropTypes.func.isRequired,
   handleDeleteBtn: PropTypes.func.isRequired,
   handleRegisterBtn: PropTypes.func.isRequired,
+  handleDeregisterBtn: PropTypes.func.isRequired,
 };
 
 export default RecipeReviewCard;

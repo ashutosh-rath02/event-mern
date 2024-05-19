@@ -18,7 +18,7 @@ const ProfileCRUD = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [bio, setBio] = useState("");
   const [club, setClub] = useState("");
-  const [selectedComponent, setSelectedComponent] = useState("profile");
+  const [selectedComponent, setSelectedComponent] = useState("myEvents");
 
   const dispatch = useDispatch();
 

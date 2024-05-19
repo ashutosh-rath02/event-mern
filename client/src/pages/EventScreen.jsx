@@ -6,6 +6,7 @@ import {
   useGetEventsMutation,
   useDeleteEventMutation,
   useRegisterForEventMutation,
+  useDeregisterFromEventMutation,
 } from "../slices/eventsApiSlice";
 import { toast } from "react-toastify";
 import Loader from "../atoms/Loader";
@@ -23,6 +24,7 @@ const EventScreen = () => {
   const [getEvents, { isLoading }] = useGetEventsMutation();
   const [deleteEvent] = useDeleteEventMutation();
   const [registerForEvent] = useRegisterForEventMutation();
+  const [deregisterFromEvent] = useDeregisterFromEventMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -58,6 +60,17 @@ const EventScreen = () => {
     try {
       await registerForEvent(eventId).unwrap();
       toast.success("Successfully registered for the event!");
+      fetchEvents();
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
+  };
+
+  const handleDeregisterBtn = async (eventId) => {
+    try {
+      await deregisterFromEvent(eventId).unwrap();
+      toast.success("Successfully deregistered from the event!");
+      fetchEvents();
     } catch (err) {
       toast.error(err?.data?.message || err.error);
     }
@@ -74,6 +87,7 @@ const EventScreen = () => {
           handleModifyBtn={handleModifyBtn}
           handleDeleteBtn={handleDeleteBtn}
           handleRegisterBtn={handleRegisterBtn}
+          handleDeregisterBtn={handleDeregisterBtn}
         />
       </div>
     </div>

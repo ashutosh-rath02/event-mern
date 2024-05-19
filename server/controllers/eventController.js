@@ -230,6 +230,44 @@ const registerForEvent = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Successfully registered for the event" });
 });
 
+// @desc    Deregister from an event
+// @route   POST /api/events/deregister
+// @access  Private
+const deregisterFromEvent = asyncHandler(async (req, res) => {
+  const { eventId } = req.body;
+  const userId = req.user._id;
+
+  const event = await Event.findById(eventId);
+  if (!event) {
+    res.status(404);
+    throw new Error("Event not found");
+  }
+
+  const user = await User.findById(userId);
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  // Check if user is registered for the event
+  if (!event.registeredUsers.includes(userId)) {
+    res.status(400);
+    throw new Error("User is not registered for this event");
+  }
+
+  event.registeredUsers = event.registeredUsers.filter(
+    (id) => id.toString() !== userId.toString()
+  );
+  user.registeredEvents = user.registeredEvents.filter(
+    (id) => id.toString() !== eventId.toString()
+  );
+
+  await event.save();
+  await user.save();
+
+  res.status(200).json({ message: "Successfully deregistered from the event" });
+});
+
 export {
   createEvent,
   getEvents,
@@ -239,4 +277,5 @@ export {
   deleteEvent,
   registerForEvent,
   getEventsRegisteredByUser,
+  deregisterFromEvent,
 };

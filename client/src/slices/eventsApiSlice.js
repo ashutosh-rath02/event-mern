@@ -55,6 +55,13 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
         body: { eventId },
       }),
     }),
+    deregisterFromEvent: builder.mutation({
+      query: (eventId) => ({
+        url: `${EVENTS_URL}/deregister`,
+        method: "POST",
+        body: { eventId },
+      }),
+    }),
   }),
 });
 
@@ -67,4 +74,5 @@ export const {
   useGetEventsCreatedByUserMutation,
   useRegisterForEventMutation,
   useGetRegisteredEventsMutation,
+  useDeregisterFromEventMutation,
 } = eventsApiSlice;
