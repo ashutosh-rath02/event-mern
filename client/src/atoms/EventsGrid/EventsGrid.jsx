@@ -1,7 +1,8 @@
+import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import RecipeReviewCard from "./Card";
 import PropTypes from "prop-types";
-import { Button } from "react-bootstrap";
+import { Button, TextField } from "@mui/material";
 
 const EventsGrid = ({
   events,
@@ -10,6 +11,11 @@ const EventsGrid = ({
   handleRegisterBtn,
   handleDeregisterBtn,
 }) => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const filteredEvents = events.filter((event) =>
+    event.eventName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="text-center">
       <div
@@ -30,6 +36,16 @@ const EventsGrid = ({
           Add event
         </Button>
       </div>
+      <div style={{ width: "50%", margin: "2rem auto" }}>
+        <TextField
+          label="Search Event"
+          variant="outlined"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          fullWidth
+          margin="normal"
+        />
+      </div>
       <Grid
         container
         spacing={4}
@@ -37,7 +53,7 @@ const EventsGrid = ({
         margin={"auto"}
         textAlign={"left"}
       >
-        {events.map((event, index) => (
+        {filteredEvents.map((event, index) => (
           <Grid
             key={index}
             item
