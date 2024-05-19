@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import Event from "../models/eventModel.js";
 import { validateEvent } from "../utils/validateEvent.js";
+import User from "../models/userModel.js";
 
 // @desc    Create a new event
 // @route   POST /api/events
@@ -28,6 +29,12 @@ const createEvent = asyncHandler(async (req, res) => {
     });
 
     if (event) {
+      await User.findByIdAndUpdate(
+        user._id,
+        { $push: { myEvents: event._id } },
+        { new: true, useFindAndModify: false }
+      );
+
       res.status(201).json({
         _id: event._id,
         eventName: event.eventName,
@@ -150,8 +157,15 @@ const getEventsCreatedByUser = async (req, res) => {
   };
   const userId = user._id;
   try {
-    const userEvents = await Event.find({ eventOwner: userId });
-    res.json(userEvents);
+    const user = await User.findById(userId).select("myEvents");
+
+    if (user) {
+      const userEvents = await Event.find({ _id: { $in: user.myEvents } });
+
+      res.json(userEvents);
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
