@@ -22,6 +22,12 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getRegisteredEvents: builder.mutation({
+      query: () => ({
+        url: `${EVENTS_URL}/registered-events`,
+        method: "GET",
+      }),
+    }),
     getEventById: builder.query({
       query: (eventId) => ({
         url: `${EVENTS_URL}/${eventId}`,
@@ -42,6 +48,13 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    registerForEvent: builder.mutation({
+      query: (eventId) => ({
+        url: `${EVENTS_URL}/register`,
+        method: "POST",
+        body: { eventId },
+      }),
+    }),
   }),
 });
 
@@ -52,4 +65,6 @@ export const {
   useUpdateEventMutation,
   useDeleteEventMutation,
   useGetEventsCreatedByUserMutation,
+  useRegisterForEventMutation,
+  useGetRegisteredEventsMutation,
 } = eventsApiSlice;

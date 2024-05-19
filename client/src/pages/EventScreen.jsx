@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import {
   useGetEventsMutation,
   useDeleteEventMutation,
+  useRegisterForEventMutation,
 } from "../slices/eventsApiSlice";
 import { toast } from "react-toastify";
 import Loader from "../atoms/Loader";
@@ -21,6 +22,7 @@ const EventScreen = () => {
 
   const [getEvents, { isLoading }] = useGetEventsMutation();
   const [deleteEvent] = useDeleteEventMutation();
+  const [registerForEvent] = useRegisterForEventMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -52,6 +54,15 @@ const EventScreen = () => {
     }
   };
 
+  const handleRegisterBtn = async (eventId) => {
+    try {
+      await registerForEvent(eventId).unwrap();
+      toast.success("Successfully registered for the event!");
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
+  };
+
   return (
     <div className="flex flex-col w-full">
       <Banner />
@@ -62,6 +73,7 @@ const EventScreen = () => {
           events={events}
           handleModifyBtn={handleModifyBtn}
           handleDeleteBtn={handleDeleteBtn}
+          handleRegisterBtn={handleRegisterBtn}
         />
       </div>
     </div>

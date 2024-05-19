@@ -2,10 +2,11 @@ import express from "express";
 import {
   createEvent,
   getEvents,
-  getEventById,
   updateEvent,
   deleteEvent,
   getEventsCreatedByUser,
+  registerForEvent,
+  getEventsRegisteredByUser,
 } from "../controllers/eventController.js";
 import { protect } from "../middleware/authMiddleware.js";
 
@@ -17,4 +18,7 @@ router.route("/delete").delete(protect, deleteEvent);
 //check this
 router.route("/").get(protect, getEvents);
 router.route("/profile").get(protect, getEventsCreatedByUser);
+router.route("/register").post(protect, registerForEvent);
+router.route("/registered-events").get(protect, getEventsRegisteredByUser);
+
 export default router;

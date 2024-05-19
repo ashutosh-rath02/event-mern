@@ -171,6 +171,65 @@ const getEventsCreatedByUser = async (req, res) => {
   }
 };
 
+// Get events created by a user
+const getEventsRegisteredByUser = async (req, res) => {
+  const user = {
+    _id: req.user._id,
+    name: req.user.name,
+    email: req.user.email,
+  };
+  const userId = user._id;
+  try {
+    const user = await User.findById(userId).select("registeredEvents");
+
+    if (user) {
+      const registeredEvents = await Event.find({
+        _id: { $in: user.registeredEvents },
+      });
+
+      res.json(registeredEvents);
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Register for an event
+// @route   POST /api/events/register/:id
+// @access  Private
+const registerForEvent = asyncHandler(async (req, res) => {
+  const { eventId } = req.body;
+  const userId = req.user._id;
+
+  const event = await Event.findById(eventId);
+  if (!event) {
+    res.status(404);
+    throw new Error("Event not found");
+  }
+
+  const user = await User.findById(userId);
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  // Check if user is already registered for the event
+  if (event.registeredUsers.includes(userId)) {
+    res.status(400);
+    throw new Error("User is already registered for this event");
+  }
+
+  event.registeredUsers.push(userId);
+  user.registeredEvents.push(eventId);
+
+  await event.save();
+  await user.save();
+
+  res.status(200).json({ message: "Successfully registered for the event" });
+});
+
 export {
   createEvent,
   getEvents,
@@ -178,4 +237,6 @@ export {
   getEventById,
   updateEvent,
   deleteEvent,
+  registerForEvent,
+  getEventsRegisteredByUser,
 };

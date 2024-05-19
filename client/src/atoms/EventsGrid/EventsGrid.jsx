@@ -3,7 +3,12 @@ import RecipeReviewCard from "./Card";
 import PropTypes from "prop-types";
 import { Button } from "react-bootstrap";
 
-const EventsGrid = ({ events, handleModifyBtn, handleDeleteBtn }) => {
+const EventsGrid = ({
+  events,
+  handleModifyBtn,
+  handleDeleteBtn,
+  handleRegisterBtn,
+}) => {
   return (
     <div className="text-center">
       <div
@@ -45,6 +50,7 @@ const EventsGrid = ({ events, handleModifyBtn, handleDeleteBtn }) => {
               event={event}
               handleModifyBtn={handleModifyBtn}
               handleDeleteBtn={handleDeleteBtn}
+              handleRegisterBtn={handleRegisterBtn}
             />
           </Grid>
         ))}
@@ -57,6 +63,7 @@ EventsGrid.propTypes = {
   events: PropTypes.array.isRequired,
   handleModifyBtn: PropTypes.func.isRequired,
   handleDeleteBtn: PropTypes.func.isRequired,
+  handleRegisterBtn: PropTypes.func.isRequired,
 };
 
 export default EventsGrid;

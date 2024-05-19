@@ -17,6 +17,35 @@ const CreateEventScreen = () => {
   const [endTime, setEndTime] = useState("");
   const [category, setCategory] = useState("");
 
+  const categories = [
+    "Cultural - Eastern European",
+    "Cultural - Western European",
+    "Cultural - Asian",
+    "Cultural - Indian",
+    "Cultural - African",
+    "Cultural - Middle East",
+    "Cultural - Hispanic",
+    "Cultural - South American",
+    "Arts/Film/Theatre",
+    "Club Sports",
+    "Exercise/Health",
+    "Community Service",
+    "Dance",
+    "Dental",
+    "Educational",
+    "Engineering",
+    "Faculty",
+    "Greek Life",
+    "Journal/Media",
+    "LGBTQI",
+    "Martial Arts",
+    "Political",
+    "Religious",
+    "Social",
+    "Technology",
+    "Others",
+  ];
+
   // const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -113,12 +142,17 @@ const CreateEventScreen = () => {
         {/* Category */}
         <Form.Group className="my-2" controlId="category">
           <Form.Label>Category</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter category"
+          <Form.Select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-          ></Form.Control>
+          >
+            <option value="">Select category</option>
+            {categories.map((cat, index) => (
+              <option key={index} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </Form.Select>
         </Form.Group>
 
         {isLoading && <Loader />}

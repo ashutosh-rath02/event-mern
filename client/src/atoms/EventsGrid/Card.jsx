@@ -9,7 +9,12 @@ import { MdDelete } from "react-icons/md";
 import PropTypes from "prop-types";
 // import React from "react";
 
-const RecipeReviewCard = ({ event, handleModifyBtn, handleDeleteBtn }) => {
+const RecipeReviewCard = ({
+  event,
+  handleModifyBtn,
+  handleDeleteBtn,
+  handleRegisterBtn,
+}) => {
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => setOpen(true);
   // const handleClose = () => setOpen(false);
@@ -56,7 +61,11 @@ const RecipeReviewCard = ({ event, handleModifyBtn, handleDeleteBtn }) => {
         mx={2}
       >
         <Typography variant="body1">{`${event.startTime} - ${event.endTime}`}</Typography>
-        <Button variant="contained" color="primary">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => handleRegisterBtn(event._id)}
+        >
           Register
         </Button>
       </Box>
@@ -68,6 +77,7 @@ RecipeReviewCard.propTypes = {
   event: PropTypes.object.isRequired,
   handleModifyBtn: PropTypes.func.isRequired,
   handleDeleteBtn: PropTypes.func.isRequired,
+  handleRegisterBtn: PropTypes.func.isRequired,
 };
 
 export default RecipeReviewCard;
