@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
-import { useGetEventsCreatedByUserMutation } from "../slices/eventsApiSlice";
+import {
+  useGetEventsCreatedByUserMutation,
+  useDeleteEventMutation,
+} from "../slices/eventsApiSlice";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import Loader from "../atoms/Loader";
-import { Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   CardContent,
@@ -10,16 +14,21 @@ import {
   CardMedia,
   Chip,
   Grid,
+  IconButton,
   Typography,
 } from "@mui/material";
+import { FaSlidersH } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import { Card } from "react-bootstrap";
 
 const MyEvents = () => {
   const [myEvents, setMyEvents] = useState([]);
-
   const [getEventsCreatedByUser, { isLoading }] =
     useGetEventsCreatedByUserMutation();
-
+  const [deleteEvent] = useDeleteEventMutation();
   const { userInfo } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (userInfo) {
       fetchMyEvents();
@@ -35,6 +44,20 @@ const MyEvents = () => {
     }
   };
 
+  const handleModifyBtn = (event) => {
+    navigate("/update", { state: event });
+  };
+
+  const handleDeleteBtn = async (eventId) => {
+    try {
+      await deleteEvent(eventId).unwrap();
+      toast.success("Event deleted successfully!");
+      fetchMyEvents();
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
+  };
+
   return (
     <div>
       {isLoading && <Loader />}
@@ -47,22 +70,22 @@ const MyEvents = () => {
                 <CardHeader
                   title={event.eventName}
                   subheader={new Date(event.date).toLocaleDateString()}
-                  // action={
-                  //   <Box display="flex">
-                  //     <IconButton onClick={() => handleModifyBtn(event)}>
-                  //       <FaSlidersH />
-                  //     </IconButton>
-                  //     <IconButton onClick={() => handleDeleteBtn(event)}>
-                  //       <MdDelete />
-                  //     </IconButton>
-                  //   </Box>
-                  // }
+                  action={
+                    <Box display="flex">
+                      <IconButton onClick={() => handleModifyBtn(event)}>
+                        <FaSlidersH />
+                      </IconButton>
+                      <IconButton onClick={() => handleDeleteBtn(event._id)}>
+                        <MdDelete />
+                      </IconButton>
+                    </Box>
+                  }
                 />
                 <CardMedia
                   component="img"
                   height="194"
                   image={
-                    event.image ||
+                    event.photo ||
                     "https://res.cloudinary.com/dhnkuonev/image/upload/v1705600831/tx9lsuldgeqmo6ztwjxw.png"
                   }
                   alt={event.eventName}
@@ -96,4 +119,5 @@ const MyEvents = () => {
     </div>
   );
 };
+
 export default MyEvents;

@@ -11,6 +11,7 @@ import {
   getSuggestedEvents,
 } from "../controllers/eventController.js";
 import { protect } from "../middleware/authMiddleware.js";
+import upload from "../middleware/uploadMiddleware.js";
 
 const router = express.Router();
 
@@ -24,5 +25,8 @@ router.route("/register").post(protect, registerForEvent);
 router.route("/registered-events").get(protect, getEventsRegisteredByUser);
 router.route("/deregister").post(protect, deregisterFromEvent);
 router.route("/suggested-events").get(protect, getSuggestedEvents);
+router.route("/upload").post(protect, upload.single("image"), (req, res) => {
+  res.status(200).json({ url: req.file.path });
+});
 
 export default router;

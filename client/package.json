@@ -16,6 +16,7 @@
     "@mui/icons-material": "^5.15.17",
     "@mui/material": "^5.15.17",
     "@reduxjs/toolkit": "^1.9.5",
+    "axios": "^1.7.0",
     "bootstrap": "^5.2.3",
     "keen-slider": "^6.8.6",
     "prop-types": "^15.8.1",

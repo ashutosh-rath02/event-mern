@@ -60,7 +60,7 @@ const RegisteredEvents = () => {
                   component="img"
                   height="194"
                   image={
-                    event.image ||
+                    event.photo ||
                     "https://res.cloudinary.com/dhnkuonev/image/upload/v1705600831/tx9lsuldgeqmo6ztwjxw.png"
                   }
                   alt={event.eventName}

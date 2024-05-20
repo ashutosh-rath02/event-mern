@@ -5,6 +5,7 @@ import { Form, Button } from "react-bootstrap";
 import FormContainer from "../atoms/FormContainer";
 import { toast } from "react-toastify";
 import Loader from "../atoms/Loader";
+import axios from "axios";
 
 import { useCreateEventMutation } from "../slices/eventsApiSlice";
 import { getCurrentDate } from "../utils/checkDate";
@@ -16,6 +17,8 @@ const CreateEventScreen = () => {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [category, setCategory] = useState("");
+  const [image, setImage] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   const categories = [
     "Cultural - Eastern European",
@@ -60,6 +63,29 @@ const CreateEventScreen = () => {
     setCategory("");
   };
 
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      const { data } = await axios.post("/api/events/upload", formData, config);
+
+      setImage(data.url);
+      setUploading(false);
+    } catch (error) {
+      toast.error("Image upload failed");
+      setUploading(false);
+    }
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -70,6 +96,7 @@ const CreateEventScreen = () => {
         startTime,
         endTime,
         category,
+        photo: image,
       }).unwrap();
       toast.success("Event created successfully!");
       navigate("/");
@@ -153,6 +180,13 @@ const CreateEventScreen = () => {
               </option>
             ))}
           </Form.Select>
+        </Form.Group>
+
+        {/* Image Upload */}
+        <Form.Group className="my-2" controlId="image">
+          <Form.Label>Image</Form.Label>
+          <Form.Control type="file" onChange={uploadFileHandler}></Form.Control>
+          {uploading && <Loader />}
         </Form.Group>
 
         {isLoading && <Loader />}
