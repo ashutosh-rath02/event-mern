@@ -32,6 +32,7 @@ const EventsGrid = ({
         <Button
           className="btn btn-primary btn-lg modify self-end relative right-2"
           href="/create"
+          variant="contained"
         >
           Add event
         </Button>
