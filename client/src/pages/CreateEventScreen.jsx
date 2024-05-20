@@ -9,6 +9,7 @@ import axios from "axios";
 
 import { useCreateEventMutation } from "../slices/eventsApiSlice";
 import { getCurrentDate } from "../utils/checkDate";
+import { set } from "mongoose";
 
 const CreateEventScreen = () => {
   const [eventName, setEventName] = useState("");
@@ -17,6 +18,7 @@ const CreateEventScreen = () => {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [category, setCategory] = useState("");
+  const [club, setClub] = useState("");
   const [image, setImage] = useState("");
   const [uploading, setUploading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -61,6 +63,7 @@ const CreateEventScreen = () => {
     setStartTime("");
     setEndTime("");
     setCategory("");
+    setClub("");
     setImage("");
     setErrors({});
   };
@@ -98,6 +101,7 @@ const CreateEventScreen = () => {
     if (startTime && endTime && startTime >= endTime)
       newErrors.time = "Start time cannot be greater than end time";
     if (!category) newErrors.category = "Category cannot be empty";
+    if (!club) newErrors.club = "Club cannot be empty";
     if (!image) newErrors.image = "Image cannot be empty";
 
     setErrors(newErrors);
@@ -117,6 +121,7 @@ const CreateEventScreen = () => {
         startTime,
         endTime,
         category,
+        club,
         photo: image,
       }).unwrap();
       toast.success("Event created successfully!");
@@ -219,6 +224,18 @@ const CreateEventScreen = () => {
             {errors.category && (
               <div style={{ color: "red" }}>{errors.category}</div>
             )}
+          </Form.Group>
+
+          {/* Club */}
+          <Form.Group className="my-2" controlId="club">
+            <Form.Label>Club</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter club"
+              value={club}
+              onChange={(e) => setClub(e.target.value)}
+            ></Form.Control>
+            {errors.club && <div style={{ color: "red" }}>{errors.club}</div>}
           </Form.Group>
 
           {/* Image Upload */}

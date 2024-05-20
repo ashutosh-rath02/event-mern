@@ -12,6 +12,7 @@ import {
   useDeleteEventMutation,
 } from "../slices/eventsApiSlice";
 import { getCurrentDate } from "../utils/checkDate";
+import { set } from "mongoose";
 
 const UpdateEventScreen = () => {
   const [eventName, setEventName] = useState("");
@@ -20,6 +21,7 @@ const UpdateEventScreen = () => {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [category, setCategory] = useState("");
+  const [club, setClub] = useState("");
   const [image, setImage] = useState("");
   const [uploading, setUploading] = useState(false);
 
@@ -55,7 +57,6 @@ const UpdateEventScreen = () => {
   const navigate = useNavigate();
   const _location = useLocation();
   const event = _location.state;
-  // console.log(event);
 
   // const { userInfo } = useSelector((state) => state.auth);
 
@@ -69,6 +70,7 @@ const UpdateEventScreen = () => {
     setStartTime(event.startTime);
     setEndTime(event.endTime);
     setCategory(event.category);
+    setClub(event.club);
     setImage(event.photo);
   }, [event]);
 
@@ -106,6 +108,7 @@ const UpdateEventScreen = () => {
         startTime,
         endTime,
         category,
+        club,
         photo: image,
       }).unwrap();
       toast.success("Event updated successfully!");
@@ -132,6 +135,7 @@ const UpdateEventScreen = () => {
     setStartTime(event.startTime);
     setEndTime(event.endTime);
     setCategory(event.category);
+    setClub(event.club);
   };
 
   return (
@@ -210,6 +214,17 @@ const UpdateEventScreen = () => {
                 </option>
               ))}
             </Form.Select>
+          </Form.Group>
+
+          {/* Club */}
+          <Form.Group className="my-2" controlId="club">
+            <Form.Label>Club</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Club"
+              value={club}
+              onChange={(e) => setClub(e.target.value)}
+            ></Form.Control>
           </Form.Group>
 
           {/* Image Upload */}

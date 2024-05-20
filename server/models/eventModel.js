@@ -55,6 +55,10 @@ const eventSchema = mongoose.Schema(
       type: Date,
       required: true,
     },
+    club: {
+      type: String,
+      required: true,
+    },
     startTime: {
       type: String,
       required: true,

@@ -1,11 +1,20 @@
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import { Box, Button, Chip } from "@mui/material";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import {
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  Typography,
+  Box,
+  Button,
+  Chip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
 
 const RecipeReviewCard = ({
   event,
@@ -14,6 +23,16 @@ const RecipeReviewCard = ({
 }) => {
   const { userInfo } = useSelector((state) => state.auth);
   const isRegistered = event.registeredUsers.includes(userInfo._id);
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Card sx={{ maxWidth: 325, minWidth: 325 }}>
@@ -30,14 +49,35 @@ const RecipeReviewCard = ({
         }
         alt={event.eventName}
       />
-      <Chip
-        className="mt-2 p-2"
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
         style={{ marginLeft: "1rem" }}
-        label={event.category || "Category"}
-      />
+      >
+        <Chip className="mt-2 p-2" label={event.category || "Category"} />
+        <div
+          style={{
+            marginRight: "1rem",
+            marginTop: "0.5rem",
+            color: "#333",
+          }}
+        >
+          {event.club}
+        </div>
+      </Box>
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {event.description}
+          {event.description.length > 100 ? (
+            <>
+              {event.description.substring(0, 100)}...
+              <Button variant="text" color="primary" onClick={handleClickOpen}>
+                Show More
+              </Button>
+            </>
+          ) : (
+            event.description
+          )}
         </Typography>
       </CardContent>
       <Box
@@ -66,6 +106,17 @@ const RecipeReviewCard = ({
           </Button>
         )}
       </Box>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>{event.eventName}</DialogTitle>
+        <DialogContent>
+          <Typography>{event.description}</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 };

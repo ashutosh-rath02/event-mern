@@ -13,8 +13,16 @@ const createEvent = asyncHandler(async (req, res) => {
     email: req.user.email,
   };
 
-  const { eventName, category, description, photo, date, startTime, endTime } =
-    req.body;
+  const {
+    eventName,
+    category,
+    description,
+    photo,
+    date,
+    startTime,
+    endTime,
+    club,
+  } = req.body;
 
   if (await validateEvent(req)) {
     const event = await Event.create({
@@ -22,6 +30,7 @@ const createEvent = asyncHandler(async (req, res) => {
       category,
       description,
       photo,
+      club,
       date,
       startTime,
       endTime,
@@ -43,6 +52,7 @@ const createEvent = asyncHandler(async (req, res) => {
         photo:
           "https://res.cloudinary.com/dhnkuonev/image/upload/v1705581566/h69txfswc01izuoh27k8.webp",
         date: event.date,
+        club: event.club,
         startTime: event.startTime,
         endTime: event.endTime,
         eventOwner: event.eventOwner,
@@ -94,6 +104,7 @@ const updateEvent = asyncHandler(async (req, res) => {
     category,
     description,
     photo,
+    club,
     date,
     startTime,
     endTime,
@@ -110,6 +121,7 @@ const updateEvent = asyncHandler(async (req, res) => {
       event.date = req.body.date || event.date;
       event.startTime = req.body.startTime || event.startTime;
       event.endTime = req.body.endTime || event.endTime;
+      event.club = req.body.club || event.club;
 
       const updatedEvent = await event.save();
       res.status(200).json({
@@ -121,6 +133,7 @@ const updateEvent = asyncHandler(async (req, res) => {
         date: updatedEvent.date,
         startTime: updatedEvent.startTime,
         endTime: updatedEvent.endTime,
+        club: updatedEvent.club,
       });
     } else {
       res.status(404);

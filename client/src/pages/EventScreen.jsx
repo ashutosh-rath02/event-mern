@@ -175,7 +175,11 @@ const EventScreen = () => {
           marginRight: "3rem",
         }}
       >
-        <Button className="" href="/create" variant="contained">
+        <Button
+          className="btn btn-primary btn-lg"
+          href="/create"
+          variant="contained"
+        >
           Add Event
         </Button>
       </div>
