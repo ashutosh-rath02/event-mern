@@ -135,115 +135,120 @@ const UpdateEventScreen = () => {
   };
 
   return (
-    <FormContainer>
-      <h1>Update Event</h1>
+    <div style={{ margin: "2rem auto", width: "50%" }}>
+      <FormContainer>
+        <h1>Update Event</h1>
 
-      <Form onSubmit={submitHandler}>
-        {/* Name */}
-        <Form.Group className="my-2" controlId="eventName">
-          <Form.Label>Event Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter name"
-            value={eventName}
-            onChange={(e) => setEventName(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+        <Form onSubmit={submitHandler}>
+          {/* Name */}
+          <Form.Group className="my-2" controlId="eventName">
+            <Form.Label>Event Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter name"
+              value={eventName}
+              onChange={(e) => setEventName(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
 
-        {/* Description */}
-        <Form.Group className="my-2" controlId="description">
-          <Form.Label>Description</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+          {/* Description */}
+          <Form.Group className="my-2" controlId="description">
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
 
-        {/* Date */}
-        <Form.Group className="my-2" controlId="date">
-          <Form.Label>Date</Form.Label>
-          <Form.Control
-            type="date"
-            min={getCurrentDate()}
-            placeholder="Enter date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+          {/* Date */}
+          <Form.Group className="my-2" controlId="date">
+            <Form.Label>Date</Form.Label>
+            <Form.Control
+              type="date"
+              min={getCurrentDate()}
+              placeholder="Enter date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
 
-        {/*Start Time */}
-        <Form.Group className="my-2" controlId="startTime">
-          <Form.Label>Start Time</Form.Label>
-          <Form.Control
-            type="time"
-            placeholder="Enter Start Time"
-            value={startTime}
-            onChange={(e) => setStartTime(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+          {/*Start Time */}
+          <Form.Group className="my-2" controlId="startTime">
+            <Form.Label>Start Time</Form.Label>
+            <Form.Control
+              type="time"
+              placeholder="Enter Start Time"
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
 
-        {/*End Time */}
-        <Form.Group className="my-2" controlId="endTime">
-          <Form.Label>End Time</Form.Label>
-          <Form.Control
-            type="time"
-            placeholder="Enter End Time"
-            value={endTime}
-            onChange={(e) => setEndTime(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+          {/*End Time */}
+          <Form.Group className="my-2" controlId="endTime">
+            <Form.Label>End Time</Form.Label>
+            <Form.Control
+              type="time"
+              placeholder="Enter End Time"
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
 
-        {/* Category */}
-        <Form.Group className="my-2" controlId="category">
-          <Form.Label>Category</Form.Label>
-          <Form.Select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="">Select category</option>
-            {categories.map((cat, index) => (
-              <option key={index} value={cat}>
-                {cat}
-              </option>
-            ))}
-          </Form.Select>
-        </Form.Group>
+          {/* Category */}
+          <Form.Group className="my-2" controlId="category">
+            <Form.Label>Category</Form.Label>
+            <Form.Select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="">Select category</option>
+              {categories.map((cat, index) => (
+                <option key={index} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </Form.Select>
+          </Form.Group>
 
-        {/* Image Upload */}
-        <Form.Group className="my-2" controlId="image">
-          <Form.Label>Image</Form.Label>
-          <Form.Control type="file" onChange={uploadFileHandler}></Form.Control>
-          {uploading && <Loader />}
-        </Form.Group>
+          {/* Image Upload */}
+          <Form.Group className="my-2" controlId="image">
+            <Form.Label>Image</Form.Label>
+            <Form.Control
+              type="file"
+              onChange={uploadFileHandler}
+            ></Form.Control>
+            {uploading && <Loader />}
+          </Form.Group>
 
-        {isLoading && <Loader />}
+          {isLoading && <Loader />}
 
-        {/* Button */}
-        <div className="lineBtns">
-          <Button type="submit" variant="primary" className="modify mt-3">
-            Update
-          </Button>
+          {/* Button */}
+          <div className="lineBtns">
+            <Button type="submit" variant="primary" className="modify mt-3">
+              Update
+            </Button>
 
-          <Button
-            variant="secondary"
-            className="delete mt-3"
-            onClick={() => handleResetBtn()}
-          >
-            Reset
-          </Button>
+            <Button
+              variant="secondary"
+              className="delete mt-3"
+              onClick={() => handleResetBtn()}
+            >
+              Reset
+            </Button>
 
-          <Button
-            variant="secondary"
-            className="delete mt-3"
-            onClick={() => handleDeleteBtn(event)}
-          >
-            Delete
-          </Button>
-        </div>
-      </Form>
-    </FormContainer>
+            <Button
+              variant="secondary"
+              className="delete mt-3"
+              onClick={() => handleDeleteBtn(event)}
+            >
+              Delete
+            </Button>
+          </div>
+        </Form>
+      </FormContainer>
+    </div>
   );
 };
 

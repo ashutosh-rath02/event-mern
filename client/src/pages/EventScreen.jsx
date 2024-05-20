@@ -129,7 +129,7 @@ const EventScreen = () => {
         style={{
           display: "flex",
           flexDirection: "row",
-          alignItems: "center",
+          alignItems: "left",
           justifyContent: "space-between",
           margin: "2rem",
         }}
@@ -148,7 +148,7 @@ const EventScreen = () => {
           style={{
             minWidth: 200,
             marginRight: "1rem",
-            marginTop: "0.5rem",
+            marginTop: "1rem",
           }}
         >
           <InputLabel>Category</InputLabel>
@@ -167,17 +167,21 @@ const EventScreen = () => {
             ))}
           </Select>
         </FormControl>
-        <Button
-          className="btn btn-primary btn-lg"
-          href="/create"
-          variant="contained"
-        >
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginRight: "3rem",
+        }}
+      >
+        <Button className="" href="/create" variant="contained">
           Add Event
         </Button>
       </div>
 
       {filteredSuggestedEvents.length > 0 && (
-        <div className="event-grid" style={{ margin: "0 2rem" }}>
+        <div className="event-grid">
           <EventsGrid
             title="Suggested Events"
             events={filteredSuggestedEvents}
@@ -191,7 +195,7 @@ const EventScreen = () => {
 
       <hr style={{ margin: "2rem" }} />
 
-      <div className="event-grid" style={{ margin: "0 2rem" }}>
+      <div className="event-grid">
         {isLoading && <Loader />}
         <EventsGrid
           title="Upcoming Events"

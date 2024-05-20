@@ -62,7 +62,7 @@ const MyEvents = () => {
     <div>
       {isLoading && <Loader />}
       <h1>My Events</h1>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         {myEvents.length > 0 ? (
           myEvents.map((event) => (
             <Grid item xs={12} md={6} key={event._id}>
