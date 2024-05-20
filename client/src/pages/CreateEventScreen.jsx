@@ -19,6 +19,7 @@ const CreateEventScreen = () => {
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const categories = [
     "Cultural - Eastern European",
@@ -49,7 +50,6 @@ const CreateEventScreen = () => {
     "Others",
   ];
 
-  // const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [createEvent, { isLoading }] = useCreateEventMutation();
@@ -61,6 +61,8 @@ const CreateEventScreen = () => {
     setStartTime("");
     setEndTime("");
     setCategory("");
+    setImage("");
+    setErrors({});
   };
 
   const uploadFileHandler = async (e) => {
@@ -86,8 +88,27 @@ const CreateEventScreen = () => {
     }
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+    if (!eventName) newErrors.eventName = "Event name cannot be empty";
+    if (!description) newErrors.description = "Description cannot be empty";
+    if (!date) newErrors.date = "Date cannot be empty";
+    if (!startTime) newErrors.startTime = "Start time cannot be empty";
+    if (!endTime) newErrors.endTime = "End time cannot be empty";
+    if (startTime && endTime && startTime >= endTime)
+      newErrors.time = "Start time cannot be greater than end time";
+    if (!category) newErrors.category = "Category cannot be empty";
+    if (!image) newErrors.image = "Image cannot be empty";
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     try {
       const res = await createEvent({
         eventName,
@@ -106,108 +127,131 @@ const CreateEventScreen = () => {
   };
 
   return (
-    <FormContainer>
-      <h1>Create Event</h1>
+    <div style={{ margin: "2rem auto", width: "50%" }}>
+      <FormContainer>
+        <h1>Create Event</h1>
 
-      <Form onSubmit={submitHandler}>
-        {/* Event Name */}
-        <Form.Group className="my-2" controlId="eventName">
-          <Form.Label>EventName</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter event name"
-            value={eventName}
-            onChange={(e) => setEventName(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+        <Form onSubmit={submitHandler}>
+          {/* Event Name */}
+          <Form.Group className="my-2" controlId="eventName">
+            <Form.Label>Event Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter event name"
+              value={eventName}
+              onChange={(e) => setEventName(e.target.value)}
+            ></Form.Control>
+            {errors.eventName && (
+              <div style={{ color: "red" }}>{errors.eventName}</div>
+            )}
+          </Form.Group>
 
-        {/* Description */}
-        <Form.Group className="my-2" controlId="description">
-          <Form.Label>Description</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+          {/* Description */}
+          <Form.Group className="my-2" controlId="description">
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            ></Form.Control>
+            {errors.description && (
+              <div style={{ color: "red" }}>{errors.description}</div>
+            )}
+          </Form.Group>
 
-        {/* Date */}
-        <Form.Group className="my-2" controlId="date">
-          <Form.Label>Date</Form.Label>
-          <Form.Control
-            type="date"
-            min={getCurrentDate()}
-            placeholder="Enter date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+          {/* Date */}
+          <Form.Group className="my-2" controlId="date">
+            <Form.Label>Date</Form.Label>
+            <Form.Control
+              type="date"
+              min={getCurrentDate()}
+              placeholder="Enter date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            ></Form.Control>
+            {errors.date && <div style={{ color: "red" }}>{errors.date}</div>}
+          </Form.Group>
 
-        {/*Start Time */}
-        <Form.Group className="my-2" controlId="startTime">
-          <Form.Label>Start Time</Form.Label>
-          <Form.Control
-            type="time"
-            placeholder="Enter Start Time"
-            value={startTime}
-            onChange={(e) => setStartTime(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+          {/* Start Time */}
+          <Form.Group className="my-2" controlId="startTime">
+            <Form.Label>Start Time</Form.Label>
+            <Form.Control
+              type="time"
+              placeholder="Enter Start Time"
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+            ></Form.Control>
+            {errors.startTime && (
+              <div style={{ color: "red" }}>{errors.startTime}</div>
+            )}
+          </Form.Group>
 
-        {/*End Time */}
-        <Form.Group className="my-2" controlId="endTime">
-          <Form.Label>End Time</Form.Label>
-          <Form.Control
-            type="time"
-            placeholder="Enter End Time"
-            value={endTime}
-            onChange={(e) => setEndTime(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+          {/* End Time */}
+          <Form.Group className="my-2" controlId="endTime">
+            <Form.Label>End Time</Form.Label>
+            <Form.Control
+              type="time"
+              placeholder="Enter End Time"
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
+            ></Form.Control>
+            {errors.endTime && (
+              <div style={{ color: "red" }}>{errors.endTime}</div>
+            )}
+            {errors.time && <div style={{ color: "red" }}>{errors.time}</div>}
+          </Form.Group>
 
-        {/* Category */}
-        <Form.Group className="my-2" controlId="category">
-          <Form.Label>Category</Form.Label>
-          <Form.Select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="">Select category</option>
-            {categories.map((cat, index) => (
-              <option key={index} value={cat}>
-                {cat}
-              </option>
-            ))}
-          </Form.Select>
-        </Form.Group>
+          {/* Category */}
+          <Form.Group className="my-2" controlId="category">
+            <Form.Label>Category</Form.Label>
+            <Form.Select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="">Select category</option>
+              {categories.map((cat, index) => (
+                <option key={index} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </Form.Select>
+            {errors.category && (
+              <div style={{ color: "red" }}>{errors.category}</div>
+            )}
+          </Form.Group>
 
-        {/* Image Upload */}
-        <Form.Group className="my-2" controlId="image">
-          <Form.Label>Image</Form.Label>
-          <Form.Control type="file" onChange={uploadFileHandler}></Form.Control>
-          {uploading && <Loader />}
-        </Form.Group>
+          {/* Image Upload */}
+          <Form.Group className="my-2" controlId="image">
+            <Form.Label>Image</Form.Label>
+            <Form.Control
+              type="file"
+              onChange={uploadFileHandler}
+            ></Form.Control>
+            {errors.image && <div style={{ color: "red" }}>{errors.image}</div>}
+            {uploading && <Loader />}
+          </Form.Group>
 
-        {isLoading && <Loader />}
+          {isLoading && <Loader />}
 
-        {/* Button */}
-        <div className="lineBtns">
-          <Button type="submit" variant="primary" className="modify mt-3">
-            Create Event
-          </Button>
+          {/* Button */}
+          <div className="lineBtns">
+            <Button type="submit" variant="primary" className="modify mt-3">
+              Create Event
+            </Button>
 
-          <Button
-            type="reset"
-            variant="secondary"
-            className="delete mt-3"
-            onClick={resetForm}
-          >
-            Reset
-          </Button>
-        </div>
-      </Form>
-    </FormContainer>
+            <Button
+              type="reset"
+              variant="secondary"
+              className="delete mt-3"
+              onClick={resetForm}
+            >
+              Reset
+            </Button>
+          </div>
+        </Form>
+      </FormContainer>
+    </div>
   );
 };
 

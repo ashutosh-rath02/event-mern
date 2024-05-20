@@ -136,11 +136,11 @@ const updateEvent = asyncHandler(async (req, res) => {
 // @route   DELETE /api/events/:id
 // @access  Private
 const deleteEvent = asyncHandler(async (req, res) => {
-  const _id = req.body._id;
-  const event = await Event.findById(_id);
+  const eventId = req.params.id;
+  const event = await Event.findById(eventId);
 
   if (event) {
-    await Event.deleteOne({ _id });
+    await Event.deleteOne({ _id: eventId });
     res.status(200).json({ message: "Event removed" });
   } else {
     res.status(404);

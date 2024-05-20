@@ -16,7 +16,7 @@ const RecipeReviewCard = ({
   const isRegistered = event.registeredUsers.includes(userInfo._id);
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 325, minWidth: 325 }}>
       <CardHeader
         title={event.eventName}
         subheader={new Date(event.date).toLocaleDateString()}

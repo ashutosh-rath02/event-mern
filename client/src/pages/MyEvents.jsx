@@ -113,7 +113,17 @@ const MyEvents = () => {
             </Grid>
           ))
         ) : (
-          <p>You have not created any events</p>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              height: "50vh",
+            }}
+          >
+            <p>You have not created any events</p>
+          </div>
         )}
       </Grid>
     </div>

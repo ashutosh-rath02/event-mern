@@ -20,7 +20,7 @@ const EventsGrid = ({
         margin={"auto"}
         textAlign={"left"}
       >
-        {events.map((event, index) => (
+        {events?.map((event, index) => (
           <Grid
             key={index}
             item

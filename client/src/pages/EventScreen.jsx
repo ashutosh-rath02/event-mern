@@ -14,13 +14,22 @@ import Loader from "../atoms/Loader";
 import "../index.css";
 import Banner from "../atoms/Carousel/Banner";
 import EventsGrid from "../atoms/EventsGrid/EventsGrid";
-import { Button, TextField } from "@mui/material";
+import {
+  Button,
+  TextField,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 
 const EventScreen = () => {
   const [name, setName] = useState("");
   const [events, setEvents] = useState([]);
   const [suggestedEvents, setSuggestedEvents] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [categories, setCategories] = useState([]);
 
   const navigate = useNavigate();
 
@@ -42,6 +51,10 @@ const EventScreen = () => {
     try {
       const res = await getEvents().unwrap();
       setEvents(res);
+
+      // Extract categories from events
+      const eventCategories = [...new Set(res.map((event) => event.category))];
+      setCategories(eventCategories);
     } catch (err) {
       console.log(err);
     }
@@ -92,16 +105,24 @@ const EventScreen = () => {
     }
   };
 
-  const filteredSuggestedEvents = suggestedEvents.filter((event) =>
-    event.eventName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredSuggestedEvents = suggestedEvents
+    .filter((event) =>
+      event.eventName.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .filter(
+      (event) => !selectedCategory || event.category === selectedCategory
+    );
 
-  const filteredEvents = events.filter((event) =>
-    event.eventName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredEvents = events
+    .filter((event) =>
+      event.eventName.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .filter(
+      (event) => !selectedCategory || event.category === selectedCategory
+    );
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full my-4">
       <Banner />
 
       <div
@@ -122,6 +143,30 @@ const EventScreen = () => {
           margin="normal"
           style={{ flex: 1, marginRight: "1rem" }}
         />
+        <FormControl
+          variant="outlined"
+          style={{
+            minWidth: 200,
+            marginRight: "1rem",
+            marginTop: "0.5rem",
+          }}
+        >
+          <InputLabel>Category</InputLabel>
+          <Select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            label="Category"
+          >
+            <MenuItem value="">
+              <em>All</em>
+            </MenuItem>
+            {categories.map((category) => (
+              <MenuItem key={category} value={category}>
+                {category}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <Button
           className="btn btn-primary btn-lg"
           href="/create"
@@ -130,24 +175,26 @@ const EventScreen = () => {
           Add Event
         </Button>
       </div>
-      <div className="event-grid" style={{ margin: "0 2rem" }}>
-        {isLoading && <Loader />}
-        <EventsGrid
-          title="Suggested Events"
-          events={filteredSuggestedEvents}
-          handleModifyBtn={handleModifyBtn}
-          handleDeleteBtn={handleDeleteBtn}
-          handleRegisterBtn={handleRegisterBtn}
-          handleDeregisterBtn={handleDeregisterBtn}
-        />
-      </div>
+
+      {filteredSuggestedEvents.length > 0 && (
+        <div className="event-grid" style={{ margin: "0 2rem" }}>
+          <EventsGrid
+            title="Suggested Events"
+            events={filteredSuggestedEvents}
+            handleModifyBtn={handleModifyBtn}
+            handleDeleteBtn={handleDeleteBtn}
+            handleRegisterBtn={handleRegisterBtn}
+            handleDeregisterBtn={handleDeregisterBtn}
+          />
+        </div>
+      )}
 
       <hr style={{ margin: "2rem" }} />
 
       <div className="event-grid" style={{ margin: "0 2rem" }}>
         {isLoading && <Loader />}
         <EventsGrid
-          title="Our Events"
+          title="Upcoming Events"
           events={filteredEvents}
           handleModifyBtn={handleModifyBtn}
           handleDeleteBtn={handleDeleteBtn}

@@ -44,3 +44,9 @@
 .nav-link:hover {
   color: black !important;
 }
+
+.lineBtns {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
