@@ -38,5 +38,9 @@
 }
 
 .sidebar-item:hover {
-  cursor: pointer; /* Indicate clickable elements */
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  color: black !important;
 }

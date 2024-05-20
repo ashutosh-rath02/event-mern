@@ -47,6 +47,7 @@ const registerUser = asyncHandler(async (req, res) => {
     password,
     bio,
     club,
+    avatar,
   });
 
   if (user) {
@@ -60,6 +61,8 @@ const registerUser = asyncHandler(async (req, res) => {
       club: user.club,
       myEvents: user.myEvents,
       registeredEvents: user.registeredEvents,
+      avatar:
+        "https://res.cloudinary.com/drpkgjnij/image/upload/v1716206857/userAvatars/6596121_yklrhn.png",
     });
   } else {
     res.status(400);
@@ -93,6 +96,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       club: user.club,
       myEvents: user.myEvents,
       registeredEvents: user.registeredEvents,
+      avatar: user.avatar,
     });
   } else {
     res.status(404);
@@ -111,6 +115,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     user.email = req.body.email || user.email;
     user.bio = req.body.bio || user.bio;
     user.club = req.body.club || user.club;
+    user.avatar = req.body.avatar || user.avatar;
     // user.myEvents = req.body.myEvents || user.myEvents;
     // user.registeredEvents = req.body.registeredEvents || user.registeredEvents;
 
@@ -126,6 +131,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       email: updatedUser.email,
       bio: updatedUser.bio,
       club: updatedUser.club,
+      avatar: updatedUser.avatar,
       // myEvents: updatedUser.myEvents,
       // registeredEvents: updatedUser.registeredEvents,
     });
