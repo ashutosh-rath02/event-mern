@@ -8,6 +8,7 @@ import {
   registerForEvent,
   getEventsRegisteredByUser,
   deregisterFromEvent,
+  getSuggestedEvents,
 } from "../controllers/eventController.js";
 import { protect } from "../middleware/authMiddleware.js";
 
@@ -22,5 +23,6 @@ router.route("/profile").get(protect, getEventsCreatedByUser);
 router.route("/register").post(protect, registerForEvent);
 router.route("/registered-events").get(protect, getEventsRegisteredByUser);
 router.route("/deregister").post(protect, deregisterFromEvent);
+router.route("/suggested-events").get(protect, getSuggestedEvents);
 
 export default router;

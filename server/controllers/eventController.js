@@ -268,6 +268,32 @@ const deregisterFromEvent = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Successfully deregistered from the event" });
 });
 
+// @desc    Get suggested events based on user registered events
+// @route   GET /api/events/suggested-events
+// @access  Private
+const getSuggestedEvents = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
+
+  const user = await User.findById(userId).select("registeredEvents");
+
+  if (user) {
+    const registeredEvents = await Event.find({
+      _id: { $in: user.registeredEvents },
+    }).select("category");
+
+    const categories = registeredEvents.map((event) => event.category);
+
+    const suggestedEvents = await Event.find({
+      category: { $in: categories },
+      _id: { $nin: user.registeredEvents },
+    });
+
+    res.json(suggestedEvents);
+  } else {
+    res.status(404).json({ message: "User not found" });
+  }
+});
+
 export {
   createEvent,
   getEvents,
@@ -278,4 +304,5 @@ export {
   registerForEvent,
   getEventsRegisteredByUser,
   deregisterFromEvent,
+  getSuggestedEvents,
 };

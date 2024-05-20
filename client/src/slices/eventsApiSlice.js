@@ -62,6 +62,12 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
         body: { eventId },
       }),
     }),
+    getSuggestedEvents: builder.mutation({
+      query: () => ({
+        url: `${EVENTS_URL}/suggested-events`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -75,4 +81,5 @@ export const {
   useRegisterForEventMutation,
   useGetRegisteredEventsMutation,
   useDeregisterFromEventMutation,
+  useGetSuggestedEventsMutation,
 } = eventsApiSlice;

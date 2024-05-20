@@ -1,8 +1,6 @@
-import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import RecipeReviewCard from "./Card";
 import PropTypes from "prop-types";
-import { Button, TextField } from "@mui/material";
 
 const EventsGrid = ({
   events,
@@ -10,43 +8,11 @@ const EventsGrid = ({
   handleDeleteBtn,
   handleRegisterBtn,
   handleDeregisterBtn,
+  title,
 }) => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const filteredEvents = events.filter((event) =>
-    event.eventName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   return (
     <div className="text-center">
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          margin: "0 2rem",
-        }}
-      >
-        <span style={{ color: "transparent" }}>.</span>
-        <h2 style={{ alignItems: "center" }}>Our Events</h2>
-        <Button
-          className="btn btn-primary btn-lg modify self-end relative right-2"
-          href="/create"
-          variant="contained"
-        >
-          Add event
-        </Button>
-      </div>
-      <div style={{ width: "50%", margin: "2rem auto" }}>
-        <TextField
-          label="Search Event"
-          variant="outlined"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          fullWidth
-          margin="normal"
-        />
-      </div>
+      <h2 style={{ margin: "2rem 0" }}>{title}</h2>
       <Grid
         container
         spacing={4}
@@ -54,7 +20,7 @@ const EventsGrid = ({
         margin={"auto"}
         textAlign={"left"}
       >
-        {filteredEvents.map((event, index) => (
+        {events.map((event, index) => (
           <Grid
             key={index}
             item
@@ -84,6 +50,7 @@ EventsGrid.propTypes = {
   handleDeleteBtn: PropTypes.func.isRequired,
   handleRegisterBtn: PropTypes.func.isRequired,
   handleDeregisterBtn: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default EventsGrid;
