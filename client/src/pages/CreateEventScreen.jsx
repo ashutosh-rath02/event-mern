@@ -9,7 +9,6 @@ import axios from "axios";
 
 import { useCreateEventMutation } from "../slices/eventsApiSlice";
 import { getCurrentDate } from "../utils/checkDate";
-import { set } from "mongoose";
 
 const CreateEventScreen = () => {
   const [eventName, setEventName] = useState("");
