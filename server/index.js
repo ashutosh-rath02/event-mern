@@ -1,6 +1,7 @@
 import path from "path";
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 dotenv.config();
 import connectDB from "./config/db.js";
 import cookieParser from "cookie-parser";
@@ -18,6 +19,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
+
+const corsOptions = {
+  origin:
+    process.env.NODE_ENV === "production"
+      ? "https://ucla-website.vercel.app"
+      : "http://localhost:3000",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 //user route
 app.use("/api/users", userRoutes);
