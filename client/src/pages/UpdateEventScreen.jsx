@@ -12,7 +12,6 @@ import {
   useDeleteEventMutation,
 } from "../slices/eventsApiSlice";
 import { getCurrentDate } from "../utils/checkDate";
-import { set } from "mongoose";
 
 const UpdateEventScreen = () => {
   const [eventName, setEventName] = useState("");
