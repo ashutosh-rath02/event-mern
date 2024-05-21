@@ -294,7 +294,7 @@ const getSuggestedEvents = asyncHandler(async (req, res) => {
       _id: { $in: user.registeredEvents },
     }).select("category");
 
-    const categories = registeredEvents.map((event) => event.category);
+    const categories = registeredEvents?.map((event) => event.category);
 
     const suggestedEvents = await Event.find({
       category: { $in: categories },

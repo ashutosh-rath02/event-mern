@@ -23,6 +23,7 @@ const RecipeReviewCard = ({
 }) => {
   const { userInfo } = useSelector((state) => state.auth);
   const isRegistered = event.registeredUsers.includes(userInfo._id);
+  const pastEvent = new Date(event.date) < new Date();
 
   const [open, setOpen] = useState(false);
 
@@ -34,6 +35,7 @@ const RecipeReviewCard = ({
     setOpen(false);
   };
 
+  if (pastEvent) return null;
   return (
     <Card sx={{ maxWidth: 325, minWidth: 325 }}>
       <CardHeader

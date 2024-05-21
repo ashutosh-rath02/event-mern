@@ -160,7 +160,7 @@ const EventScreen = () => {
             <MenuItem value="">
               <em>All</em>
             </MenuItem>
-            {categories.map((category) => (
+            {categories?.map((category) => (
               <MenuItem key={category} value={category}>
                 {category}
               </MenuItem>

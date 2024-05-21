@@ -64,7 +64,7 @@ const MyEvents = () => {
       <h1>My Events</h1>
       <Grid container spacing={3}>
         {myEvents.length > 0 ? (
-          myEvents.map((event) => (
+          myEvents?.map((event) => (
             <Grid item xs={12} md={6} key={event._id}>
               <Card sx={{ maxWidth: 345 }}>
                 <CardHeader

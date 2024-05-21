@@ -27,11 +27,11 @@ const ProfileCRUD = () => {
   const [updateProfile, { isLoading }] = useUpdateUserMutation();
 
   useEffect(() => {
-    setName(userInfo.name);
-    setEmail(userInfo.email);
-    setBio(userInfo.bio);
-    setClub(userInfo.club);
-    setAvatar(userInfo.avatar);
+    setName(userInfo?.name);
+    setEmail(userInfo?.email);
+    setBio(userInfo?.bio);
+    setClub(userInfo?.club);
+    setAvatar(userInfo?.avatar);
   }, [userInfo]);
 
   const uploadFileHandler = async (e) => {
@@ -53,7 +53,7 @@ const ProfileCRUD = () => {
         config
       );
 
-      setAvatar(data.url);
+      setAvatar(data?.url);
       setUploading(false);
     } catch (error) {
       toast.error("Image upload failed");
@@ -75,7 +75,7 @@ const ProfileCRUD = () => {
       dispatch(setCredentials(res));
       toast.success("Profile updated successfully");
     } catch (err) {
-      toast.error(err?.data?.message || err.error);
+      toast.error(err?.data?.message || err?.error);
     }
   };
 
@@ -107,7 +107,7 @@ const ProfileCRUD = () => {
                     type="name"
                     placeholder="Enter name"
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => setName(e.target?.value)}
                   ></Form.Control>
                 </Form.Group>
                 <Form.Group className="my-2" controlId="email">
@@ -116,7 +116,7 @@ const ProfileCRUD = () => {
                     type="email"
                     placeholder="Enter email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target?.value)}
                   ></Form.Control>
                 </Form.Group>
                 <Form.Group className="my-2" controlId="bio">
@@ -125,7 +125,7 @@ const ProfileCRUD = () => {
                     type="textarea"
                     placeholder="Bio"
                     value={bio}
-                    onChange={(e) => setBio(e.target.value)}
+                    onChange={(e) => setBio(e.target?.value)}
                   ></Form.Control>
                 </Form.Group>
 
@@ -135,7 +135,7 @@ const ProfileCRUD = () => {
                     type="text"
                     placeholder="Club"
                     value={club}
-                    onChange={(e) => setClub(e.target.value)}
+                    onChange={(e) => setClub(e.target?.value)}
                   ></Form.Control>
                 </Form.Group>
 

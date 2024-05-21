@@ -54,7 +54,9 @@ const RegisteredEvents = () => {
       setEvents(res);
 
       // Extract categories from events
-      const eventCategories = [...new Set(res.map((event) => event.category))];
+      const eventCategories = [
+        ...new Set(res?.map((event) => event?.category)),
+      ];
       setCategories(eventCategories);
     } catch (err) {
       console.log(err);
@@ -93,7 +95,7 @@ const RegisteredEvents = () => {
       <h1>Registered Events</h1>
       <Grid container spacing={2}>
         {registeredEvents.length > 0 ? (
-          registeredEvents.map((event) => (
+          registeredEvents?.map((event) => (
             <Grid item xs={12} md={6} key={event._id}>
               <Card sx={{ maxWidth: 345 }}>
                 <CardHeader

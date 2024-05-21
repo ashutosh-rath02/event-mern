@@ -215,7 +215,7 @@ const CreateEventScreen = () => {
               onChange={(e) => setCategory(e.target.value)}
             >
               <option value="">Select category</option>
-              {categories.map((cat, index) => (
+              {categories?.map((cat, index) => (
                 <option key={index} value={cat}>
                   {cat}
                 </option>
