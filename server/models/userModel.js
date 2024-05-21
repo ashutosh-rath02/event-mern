@@ -24,9 +24,6 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    avatar: {
-      type: String,
-    },
     myEvents: [
       {
         type: mongoose.Schema.Types.ObjectId,

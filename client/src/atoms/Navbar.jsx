@@ -1,10 +1,9 @@
-import { Navbar, Nav, Container, NavDropdown, Image } from "react-bootstrap";
+import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
-import { useEffect, useState } from "react";
 import "../index.css";
 
 const NavbarContainer = () => {
@@ -14,13 +13,6 @@ const NavbarContainer = () => {
   const navigate = useNavigate();
 
   const [logoutApiCall] = useLogoutMutation();
-  const [avatar, setAvatar] = useState(userInfo?.avatar);
-
-  useEffect(() => {
-    if (userInfo?.avatar) {
-      setAvatar(userInfo.avatar);
-    }
-  }, [userInfo?.avatar]);
 
   const logoutHandler = async () => {
     try {
@@ -67,18 +59,6 @@ const NavbarContainer = () => {
             </LinkContainer>
             {userInfo ? (
               <>
-                <div className="d-flex align-items-center">
-                  {avatar && (
-                    <Image
-                      src={avatar}
-                      roundedCircle
-                      fluid
-                      width="30"
-                      height="30"
-                      className="me-2"
-                    />
-                  )}
-                </div>
                 <NavDropdown
                   className="font-bold text-black"
                   title={userInfo.name}
