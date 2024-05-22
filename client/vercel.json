@@ -1,22 +1,35 @@
 {
   "rewrites": [
+    { "source": "/api/users/auth", "destination": "/api/users/auth" },
+    { "source": "/api/users/logout", "destination": "/api/users/logout" },
+    { "source": "/api/users", "destination": "/api/users" },
+    { "source": "/api/users/profile", "destination": "/api/users/profile" },
+    { "source": "/api/events/create", "destination": "/api/events/create" },
+    { "source": "/api/events", "destination": "/api/events" },
+    { "source": "/api/events/profile", "destination": "/api/events/profile" },
     {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
+      "source": "/api/events/registered-events",
+      "destination": "/api/events/registered-events"
+    },
+    { "source": "/api/events/:id", "destination": "/api/events/:id" },
+    { "source": "/api/events/update", "destination": "/api/events/update" },
+    { "source": "/api/events/register", "destination": "/api/events/register" },
+    {
+      "source": "/api/events/deregister",
+      "destination": "/api/events/deregister"
     },
     {
-      "source": "/(.*)",
-      "destination": "/"
-    }
+      "source": "/api/events/suggested-events",
+      "destination": "/api/events/suggested-events"
+    },
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/" }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        },
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
         {
           "key": "Access-Control-Allow-Methods",
           "value": "GET, POST, PUT, DELETE, OPTIONS"
