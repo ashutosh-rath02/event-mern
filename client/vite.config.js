@@ -7,12 +7,8 @@ export default defineConfig({
   server: {
     port: 3000,
     proxy: {
-      "/api/users": {
-        target: "https://ucla-website.onrender.com/api/users",
-        changeOrigin: true,
-      },
-      "/api/events": {
-        target: "https://ucla-website.onrender.com/api/events",
+      "/api": {
+        target: "https://ucla-website.onrender.com",
         changeOrigin: true,
       },
     },
