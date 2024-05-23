@@ -8,7 +8,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        target: "https://ucla-website-backend.onrender.com",
+        target: "https://ucla-website.onrender.com",
         changeOrigin: true,
       },
     },
