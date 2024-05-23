@@ -6,11 +6,5 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    proxy: {
-      "/api": {
-        target: "https://ucla-website.onrender.com",
-        changeOrigin: true,
-      },
-    },
   },
 });
