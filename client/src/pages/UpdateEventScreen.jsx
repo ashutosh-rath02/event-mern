@@ -86,7 +86,11 @@ const UpdateEventScreen = () => {
         },
       };
 
-      const { data } = await axios.post("/api/events/upload", formData, config);
+      const { data } = await axios.post(
+        "https://ucla-website.onrender.com/api/events/upload",
+        formData,
+        config
+      );
 
       setImage(data.url);
       setUploading(false);

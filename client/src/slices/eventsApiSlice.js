@@ -1,5 +1,5 @@
 import { apiSlice } from "./apiSlice";
-const EVENTS_URL = "/api/events";
+const EVENTS_URL = "https://ucla-website.onrender.com/api/events";
 
 export const eventsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
