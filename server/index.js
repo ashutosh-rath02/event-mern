@@ -23,7 +23,7 @@ app.use(cookieParser());
 const corsOptions = {
   origin:
     process.env.NODE_ENV === "production"
-      ? "https://ucla-website.vercel.app"
+      ? "https://capable-raindrop-86ee1a.netlify.app/"
       : "http://localhost:3000",
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
