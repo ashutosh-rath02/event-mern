@@ -20,18 +20,18 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-// const corsOptions = {
-//   origin:
-//     process.env.NODE_ENV === "production"
-//       ? "https://ucla-website.vercel.app/"
-//       : "http://localhost:3000",
-//   credentials: true,
-//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//   allowedHeaders: ["Content-Type", "Authorization"],
-//   optionsSuccessStatus: 200,
-// };
+const corsOptions = {
+  origin:
+    process.env.NODE_ENV === "production"
+      ? "https://ucla-website.vercel.app"
+      : "http://localhost:3000",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  optionsSuccessStatus: 200,
+};
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 //user route
 app.use("/api/users", userRoutes);
